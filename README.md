@@ -18,6 +18,10 @@
 
 - matplotlib
 
+- seaborn
+
+- plotly
+
 手机APP开发需如下支持。
 
 - JDK 9
