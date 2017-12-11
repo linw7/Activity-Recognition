@@ -1,7 +1,10 @@
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import validation_curve
 from sklearn.model_selection import ShuffleSplit
+from sklearn.grid_search import GridSearchCV
 import matplotlib.pyplot as plt
+from matplotlib import colors
+from matplotlib.colors import ListedColormap
 import numpy as np
 
 
@@ -126,3 +129,28 @@ def plot_confusion_matrix(confusion_matrix):
     plt.show()
     plt.close()
 
+
+def plot_gridsearch(clf, X, y):
+    plt.title("Parameters Matrix")
+    plt.xlabel('Max_Depth')
+    plt.ylabel('Min_Samples_Leaf')
+
+    depth_range = np.linspace(1, 5, 5)
+    min_leaf_range = np.linspace(0.01, 0.05, 5)
+
+    param = dict(max_depth=depth_range, min_samples_leaf=min_leaf_range)
+    grid_search = GridSearchCV(clf, param_grid=param, cv=2, scoring='accuracy')
+    grid_search.fit(X, y)
+
+    scores = [x[1] for x in grid_search.grid_scores_]
+    scores = np.array(scores).reshape(len(depth_range), len(min_leaf_range))
+
+    plt.subplots_adjust(left=.2, right=0.95, bottom=0.15, top=0.95)
+    plt.imshow(scores, interpolation='nearest', cmap=plt.cm.rainbow)
+    plt.colorbar()
+    
+    plt.xticks(np.arange(len(depth_range)), depth_range, rotation=45)
+    plt.yticks(np.arange(len(min_leaf_range)), min_leaf_range)
+   
+    plt.show()
+    plt.close()
