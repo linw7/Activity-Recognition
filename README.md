@@ -75,7 +75,6 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 | train_test_split_result | 以sklearn默认方式划分训练、测试集并训练模型 | (clf, X, y) | 打印模型性能参数 |
 | stratifiedk_fold_result | 按默认参数等比例采样后训练模型 | (clf, X, y) | 打印模型性能参数 |
 | k_fold_result | 以默认参数做K折交叉实验 | (clf, X, y) | 打印模型性能参数 |
-|
 
 ### activity_recognition.parameter:参数调优
 
@@ -85,7 +84,6 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 |:----------: |:---------:| :---------:| :--------:|
 | grid_search_parameter | 以网格搜索方式遍历超参空间 | (clf, X, y) | 各参数评分及最优参数 |
 | random_search_parameter | 以随机搜索方式遍历超参空间 | (clf, X, y) | 各参数评分及最优参数 |
-|
 
 ### activity_recognition.、visualization:数据可视化
 
@@ -99,7 +97,6 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 | plot_paramter_curve_cv | 画出指定交叉验证下单变量评分变化曲线 | (X, y, clf, cv, param_name, param_range) |得到单变量评分变化曲线 |
 | plot_confusion_matrix | 按比重画出渐变色混淆矩阵 |(confusion_matrix) | 得到渐变色混淆矩阵 |
 | plot_gridsearch | 画出二维网格准确率渐变色图 |(clf, X, y) | 得到二维网格准确率渐变色图 |
-|
 
 ### activity_recognition.utils:辅助工具
 
@@ -115,7 +112,6 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 | extract_feature | 读取各文件并截取指定特征列 | (file_name, write_file, list) | 截取的特征列写入"./feature/$(id)/$(write_file).csv"文件中 |
 | extract_activuty_feature| 截取id_list中所有用户的feature_list列特征 |(id_list, feature_list)| 每个截取的特征列写入"./feature/$(id)/$(write_file).csv"文件中 |
 | hash_name| 完成特证名与列号的映射 |  - | 返回映射结果（列） |
-|
 
 ### activity_recognition.selection:参数调优
 
@@ -124,11 +120,8 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 | 接口        |  功能      |  输入参数   |   输出(文件、返回值、打印信息)   |
 |:----------: |:---------:| :---------:| :--------:|
 | activity_pearson | 计算不同用户相同行为的相关度 |(X, Y) | 打印各特征及平均皮尔森系数 |
-|
 
-
-
-其中，各模块功能仍在完善中，preprocess需要重写。
+各模块功能仍在完善中，已有功能会对输入参数做一次统一。preprocess模块需要重写。二级接口文档最近会整理。
 
 --- 
 
