@@ -82,10 +82,10 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 
 | 接口        |  功能      |  输入参数   |   输出(文件、返回值、打印信息)   |
 |:----------: |:---------:| :---------:| :--------:|
-| grid_search_parameter | 以网格搜索方式遍历超参空间 | (clf, X, y) | 各参数评分及最优参数 |
-| random_search_parameter | 以随机搜索方式遍历超参空间 | (clf, X, y) | 各参数评分及最优参数 |
+| grid_search_parameter | 以网格搜索方式遍历超参空间并比较模型优劣 | (clf, X, y) | 打印各参数评分及模型的最优参数组合 |
+| random_search_parameter | 以随机搜索方式遍历超参空间并比较模型优劣 | (clf, X, y) | 打印各参数评分及模型的最优参数组合 |
 
-### activity_recognition.、visualization:数据可视化
+### activity_recognition.visualization:数据可视化
 
 > 一级接口
 
@@ -119,7 +119,7 @@ HARPY(Human Activity Recognition Python Library)库是为了基于加速度数�
 
 | 接口        |  功能      |  输入参数   |   输出(文件、返回值、打印信息)   |
 |:----------: |:---------:| :---------:| :--------:|
-| activity_pearson | 计算不同用户相同行为的相关度 |(X, Y) | 打印各特征及平均皮尔森系数 |
+| activity_pearson | 计算不同用户相同行为下各对应特征列间的的皮尔森系数 |(X, Y) | 打印各特征皮尔森系数及平均皮尔森系数 |
 
 各模块功能仍在完善中，已有功能会对输入参数做一次统一。preprocess模块需要重写。二级接口文档最近会整理。
 
