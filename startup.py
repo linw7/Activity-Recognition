@@ -4,12 +4,16 @@ from activity_recognition import calculate
 from activity_recognition import train
 from activity_recognition import parameter
 from activity_recognition import visualization
+from activity_recognition import selection
 
 
 def do_it():
-    clf = utils.get_default_clf("DT")
-    X, y = utils.read_file("./feature/all.csv")
-    # train.k_fold_result(clf, X, y)
-    parameter.random_search_parameter(clf, X, y)
+   
+    #X = utils.read_feature("./feature/20/Upstairs.csv")
+    #Y = utils.read_feature("./feature/21/Upstairs.csv")
+    #selection.activity_pearson(X, Y)
+    id_list = [3, 5]
+    feature_list = [0,1,2,3,4,5,6]
+    utils.extract_activuty_feature(id_list, feature_list)
 
 do_it()

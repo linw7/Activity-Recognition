@@ -7,6 +7,10 @@ def read_file(file):
     data = np.loadtxt(file, delimiter=",")
     return data[:, 1:33], data[:, 0]
 
+def read_feature(file):
+    data = np.loadtxt(file, delimiter=",")
+    return data[:, 1:33]
+
 def get_default_clf(clf):
     if clf == "DT":
         clf = DecisionTreeClassifier()
@@ -93,9 +97,122 @@ def extract_activity(file, i):
             if Jogging > 10 and Jogging <= 30:
                 write_line(line, line[0], i)
         
-
 def extract_per_people():
     list = []
     for i in range(1, 37):
         file = "./feature/" + str(i) + ".csv"
         extract_activity(file, i)
+
+def extract_feature(file, write_file, list):
+    # min list item is 0 ! 
+    X, y = read_file(file)
+    length = len(y)
+    with open(write_file, "w+") as the_file:
+        for i in range(0, length):
+            row = str(int(y[i]))
+            for j in list:
+                row = row + "," + str(int(X[i][j]))
+            row = row + "\n"
+            the_file.write(row)
+
+def hash_name(list):
+    list_index = []
+    for name in list:
+        if name == "g_mean":
+            list_index.append(0)
+        if name == "g_var":
+            list_index,append(1)
+        if name == "g_std":
+            list_index.append(2)
+        if name == "g_max":
+            list_index.append(3)
+        if name == "g_min":
+            list_index.append(4)
+        if name == "g_kurt":
+            list_index.append(5)
+        if name == "g_skew":
+            list_index.append(6)
+        if name == "g_rms":
+            list_index.append(7)
+        if name == "x_mean":
+            list_index.append(8)
+        if name == "x_var":
+            list_index, append(9)
+        if name == "x_std":
+            list_index.append(10)
+        if name == "x_max":
+            list_index.append(11)
+        if name == "x_min":
+            list_index.append(12)
+        if name == "x_kurt":
+            list_index.append(13)
+        if name == "x_skew":
+            list_index.append(14)
+        if name == "x_rms":
+            list_index.append(15)
+        if name == "y_mean":
+            list_index.append(16)
+        if name == "y_var":
+            list_index, append(17)
+        if name == "y_std":
+            list_index.append(18)
+        if name == "y_max":
+            list_index.append(19)
+        if name == "y_min":
+            list_index.append(20)
+        if name == "y_kurt":
+            list_index.append(21)
+        if name == "y_skew":
+            list_index.append(22)
+        if name == "y_rms":
+            list_index.append(23)
+        if name == "z_mean":
+            list_index.append(24)
+        if name == "z_var":
+            list_index, append(25)
+        if name == "z_std":
+            list_index.append(26)
+        if name == "z_max":
+            list_index.append(27)
+        if name == "z_min":
+            list_index.append(28)
+        if name == "z_kurt":
+            list_index.append(29)
+        if name == "z_skew":
+            list_index.append(30)
+        if name == "z_rms":
+            list_index.append(31)
+
+
+def extract_activuty_feature(id_list, feature_list):
+    for id in id_list:
+        file1 = "./feature/" + str(id) + "/Sitting.csv"
+        file1_extract = "./feature/" + str(id) + "/Extract_Sitting.csv"
+        extract_feature(file1, file1_extract, feature_list)
+
+        file2 = "./feature/" + str(id) + "/Standing.csv"
+        file2_extract = "./feature/" + str(id) + "/Extract_Standing.csv"
+        extract_feature(file2, file2_extract, feature_list)
+
+        file3 = "./feature/" + str(id) + "/Upstairs.csv"
+        file3_extract = "./feature/" + str(id) + "/Extract_Upstairs.csv"
+        extract_feature(file3, file3_extract, feature_list)
+
+        file4 = "./feature/" + str(id) + "/Downstairs.csv"
+        file4_extract = "./feature/" + str(id) + "/Extract_Downstairs.csv"
+        extract_feature(file4, file4_extract, feature_list)
+
+        file5 = "./feature/" + str(id) + "/Walking.csv"
+        file5_extract = "./feature/" + str(id) + "/Extract_Walking.csv"
+        extract_feature(file5, file5_extract, feature_list)
+
+        file6 = "./feature/" + str(id) + "/Jogging.csv"
+        file6_extract = "./feature/" + str(id) + "/Extract_Jogging.csv"
+        extract_feature(file6, file6_extract, feature_list)
+        
+        
+        
+        
+        
+        
+
