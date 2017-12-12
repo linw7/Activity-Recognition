@@ -36,10 +36,9 @@ def train_test_split_result(clf, X, y):
     clf = clf.fit(X_train, y_train)
     report_result(clf, X_test, y_test, y_train)
 
-def designated_train_test_result(train, test, clf_name):
+def designated_train_test_result(clf, train, test):
     X_train, y_train = read_file(train_file)
     X_test, y_test = read_file(test_file)
-    clf = W_Fun(clf_name)
     clf = clf.fit(X_train, y_train)
     print(metrics.classification_report(y_test, clf.predict(X_test)))
     print(metrics.confusion_matrix(y_test, clf.predict(X_test)))

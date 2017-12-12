@@ -182,6 +182,7 @@ def hash_name(list):
             list_index.append(30)
         if name == "z_rms":
             list_index.append(31)
+    return list_index
 
 
 def extract_activuty_feature(id_list, feature_list):
