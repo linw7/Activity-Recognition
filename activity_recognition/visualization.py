@@ -7,6 +7,9 @@ from matplotlib import colors
 from matplotlib.colors import ListedColormap
 import numpy as np
 
+import matplotlib.font_manager as fm
+myfont = fm.FontProperties(fname='/home/tk/Desktop/msyh.ttf')
+
 
 def plot_learning_curve_default(X, y, clf):
     plt.title("Learning Curve")
@@ -32,12 +35,13 @@ def plot_learning_curve_default(X, y, clf):
 
 
 def plot_learning_curve_cv(X, y, clf, cv):
+
+
     plt.title("Learning Curve")
     plt.xlabel("Training Instance")
     plt.ylabel("Score")
 
-    train_sizes, train_scores, test_scores = learning_curve(
-        clf, X, y, cv=cv, n_jobs=1)
+    train_sizes, train_scores, test_scores = learning_curve(clf, X, y, cv=cv, n_jobs=1)
     train_scores_mean = np.mean(train_scores, axis=1)
     train_scores_std = np.std(train_scores, axis=1)
     test_scores_mean = np.mean(test_scores, axis=1)
@@ -152,5 +156,56 @@ def plot_gridsearch(clf, X, y):
     plt.xticks(np.arange(len(depth_range)), depth_range, rotation=45)
     plt.yticks(np.arange(len(min_leaf_range)), min_leaf_range)
    
+    plt.show()
+    plt.close()
+
+
+def plot_learning_curve_cv_compare(X, y, X_S, y_S, clf, cv):
+
+    plt.subplot(121)
+    plt.title("未均衡处理前随机森林学习曲线", fontproperties=myfont, fontsize=12)
+    plt.xlabel("训练样例数", fontproperties=myfont, fontsize=12)
+    plt.ylabel("模型精度", fontproperties=myfont, fontsize=12)
+
+    train_sizes, train_scores, test_scores = learning_curve(
+        clf, X, y, cv=cv, n_jobs=1)
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+
+    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                     train_scores_mean + train_scores_std, alpha=0.1, color="r")
+    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
+                     test_scores_mean + test_scores_std, alpha=0.1, color="g")
+    plt.plot(train_sizes, train_scores_mean, "o-",
+             color="r", label="训练集精度")
+    plt.plot(train_sizes, test_scores_mean, "o-",
+             color="g", label="十折交叉精度")
+    plt.legend(loc="best", prop=myfont, fontsize=12)
+
+
+    plt.subplot(122)
+    plt.title("均衡处理后随机森林学习曲线", fontproperties=myfont, fontsize=12)
+    plt.xlabel("训练样例数", fontproperties=myfont, fontsize=12)
+    plt.ylabel("模型精度", fontproperties=myfont, fontsize=12)
+    train_sizes, train_scores, test_scores = learning_curve(
+        clf, X_S, y_S, cv=cv, n_jobs=1)
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+
+    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                     train_scores_mean + train_scores_std, alpha=0.1, color="r")
+    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
+                     test_scores_mean + test_scores_std, alpha=0.1, color="g")
+    plt.plot(train_sizes, train_scores_mean, "o-",
+             color="r", label="训练集精度")
+    plt.plot(train_sizes, test_scores_mean, "o-",
+             color="g", label="十折交叉精度")
+    plt.legend(loc="best", prop=myfont, fontsize=12)
+
+
     plt.show()
     plt.close()

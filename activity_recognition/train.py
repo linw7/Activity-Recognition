@@ -14,7 +14,7 @@ def report_result(clf, X_test, y_test, y_train):
 
 def k_fold_result(clf, X, y):
     print("This is K-Fold Result ... ")
-    kf = cross_validation.KFold(len(y), shuffle=True)
+    kf = cross_validation.KFold(len(y), n_folds=10, shuffle=True)
     for train, test in kf:
         X_train, X_test = X[train], X[test]
         y_train, y_test = y[train], y[test]
@@ -36,7 +36,7 @@ def train_test_split_result(clf, X, y):
     clf = clf.fit(X_train, y_train)
     report_result(clf, X_test, y_test, y_train)
 
-def designated_train_test_result(clf, train, test):
+def designated_train_test_result(train, test, clf):
     X_train, y_train = read_file(train_file)
     X_test, y_test = read_file(test_file)
     clf = clf.fit(X_train, y_train)

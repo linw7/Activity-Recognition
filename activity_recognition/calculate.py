@@ -149,9 +149,9 @@ def Calculate_Statistic_Feature(splited_data, Seg_granularity):
         seg_data["g_std"] = t_g_std
         seg_data["g_max"] = ("%.2f" % np.max(gravity_values))
         seg_data["g_min"] = ("%.2f" % np.min(gravity_values))
-        seg_data["g_kurt"] = ("%2f" % kurt(gravity_values, t_g_mean, t_g_std, Seg_granularity))
-        seg_data["g_skew"] = ("%2f" % skew(gravity_values, t_g_mean, t_g_std, Seg_granularity))
-        seg_data["g_rms"] = ("%2f" % rms(gravity_values, Seg_granularity))
+        seg_data["g_kurt"] = ("%.2f" % kurt(gravity_values, t_g_mean, t_g_std, Seg_granularity))
+        seg_data["g_skew"] = ("%.2f" % skew(gravity_values, t_g_mean, t_g_std, Seg_granularity))
+        seg_data["g_rms"] = ("%.2f" % rms(gravity_values, Seg_granularity))
 
         t_x_mean = ("%.2f" % np.mean(acc_x_values))
         t_x_var = ("%.2f" % np.var(acc_x_values))
@@ -161,11 +161,9 @@ def Calculate_Statistic_Feature(splited_data, Seg_granularity):
         seg_data["x_std"] = t_x_std
         seg_data["x_max"] = ("%.2f" % np.max(acc_x_values))
         seg_data["x_min"] = ("%.2f" % np.min(acc_x_values))
-        seg_data["x_kurt"] = ("%.2f" % kurt(
-            acc_x_values, t_x_mean, t_x_std, Seg_granularity))
-        seg_data["x_skew"] = ("%.2f" % skew(
-            acc_x_values, t_x_mean, t_x_std, Seg_granularity))
-        seg_data["x_rms"] = ("%2f" % rms(acc_x_values, Seg_granularity))
+        seg_data["x_kurt"] = ("%.2f" % kurt(acc_x_values, t_x_mean, t_x_std, Seg_granularity))
+        seg_data["x_skew"] = ("%.2f" % skew(acc_x_values, t_x_mean, t_x_std, Seg_granularity))
+        seg_data["x_rms"] = ("%.2f" % rms(acc_x_values, Seg_granularity))
 
         t_y_mean = ("%.2f" % np.mean(acc_y_values))
         t_y_var = ("%.2f" % np.var(acc_y_values))
@@ -175,11 +173,9 @@ def Calculate_Statistic_Feature(splited_data, Seg_granularity):
         seg_data["y_std"] = t_y_std
         seg_data["y_max"] = ("%.2f" % np.max(acc_y_values))
         seg_data["y_min"] = ("%.2f" % np.min(acc_y_values))
-        seg_data["y_kurt"] = ("%.2f" % kurt(
-            acc_y_values, t_y_mean, t_y_std, Seg_granularity))
-        seg_data["y_skew"] = ("%.2f" % skew(
-            acc_y_values, t_y_mean, t_y_std, Seg_granularity))
-        seg_data["y_rms"] = ("%2f" % rms(acc_y_values, Seg_granularity))
+        seg_data["y_kurt"] = ("%.2f" % kurt(acc_y_values, t_y_mean, t_y_std, Seg_granularity))
+        seg_data["y_skew"] = ("%.2f" % skew(acc_y_values, t_y_mean, t_y_std, Seg_granularity))
+        seg_data["y_rms"] = ("%.2f" % rms(acc_y_values, Seg_granularity))
 
         t_z_mean = ("%.2f" % np.mean(acc_z_values))
         t_z_var = ("%.2f" % np.var(acc_z_values))
@@ -191,7 +187,7 @@ def Calculate_Statistic_Feature(splited_data, Seg_granularity):
         seg_data["z_min"] = ("%.2f" % np.min(acc_z_values))
         seg_data["z_kurt"] = ("%.2f" % kurt(acc_z_values, t_z_mean, t_z_std, Seg_granularity))
         seg_data["z_skew"] = ("%.2f" % skew(acc_z_values, t_z_mean, t_z_std, Seg_granularity))
-        seg_data["z_rms"] = ("%2f" % rms(acc_z_values, Seg_granularity))
+        seg_data["z_rms"] = ("%.2f" % rms(acc_z_values, Seg_granularity))
         statistics_data.append(seg_data)
     print("Statistics_Data Length", len(statistics_data))
     return statistics_data
@@ -306,18 +302,69 @@ def Scale_Feature(statistics_data):
     print("Done, Calculate ! ")
     return statistics_data
 
+
+c_sit = 0
+c_stand = 0
+c_upstairs = 0
+c_downstairs = 0
+c_walk = 0
+c_jog = 0
+
+
+def count_label(label):
+    global c_sit
+    global c_stand
+    global c_upstairs
+    global c_downstairs
+    global c_walk
+    global c_jog
+
+    if label == "1":
+        c_sit = c_sit + 1
+    if label == "2":
+        c_stand = c_stand + 1
+    if label == "3":
+        c_upstairs = c_upstairs + 1
+    if label == "4":
+        c_downstairs = c_downstairs + 1
+    if label == "5":
+        c_walk = c_walk + 1
+    if label == "6":
+        c_jog = c_jog + 1
+
+
+
+def count_print():
+    global c_sit
+    global c_stand
+    global c_upstairs
+    global c_downstairs
+    global c_walk
+    global c_jog
+    
+    print("Sit :", c_sit)
+    print("Stand :", c_stand)
+    print("Upstairs :", c_upstairs)
+    print("Downstairs :", c_downstairs)
+    print("Walk :", c_walk)
+    print("Jog :", c_jog)
+
+
 def Write_File(write_file, statistics_data):
     print("Now, Write the File ! ")
     file = "./feature/" + write_file
     with open(file, "w+") as the_file:
         for seg_data in statistics_data:
             label = Change_Label(str(seg_data["status"]))
+            # count_label(str(label))
+            # label = str(seg_data["status"])
             row = str(label) + "," + \
                 str(seg_data["g_mean"]) + "," + str(seg_data["g_var"]) + "," + str(seg_data["g_std"]) + "," + str(seg_data["g_max"]) + "," + str(seg_data["g_min"]) + "," + str(seg_data["g_kurt"]) + "," + str(seg_data["g_skew"]) + "," + str(seg_data["g_rms"]) + "," + \
                 str(seg_data["x_mean"]) + "," + str(seg_data["x_var"]) + "," + str(seg_data["x_std"]) + "," + str(seg_data["x_max"]) + "," + str(seg_data["x_min"]) + "," + str(seg_data["x_kurt"]) + "," + str(seg_data["x_skew"]) + "," + str(seg_data["x_rms"]) + "," + \
                 str(seg_data["y_mean"]) + "," + str(seg_data["y_var"]) + "," + str(seg_data["y_std"]) + "," + str(seg_data["y_max"]) + "," + str(seg_data["y_min"]) + "," + str(seg_data["y_kurt"]) + "," + str(seg_data["y_skew"]) + "," + str(seg_data["y_rms"]) + "," + \
                 str(seg_data["z_mean"]) + "," + str(seg_data["z_var"]) + "," + str(seg_data["z_std"]) + "," + str(seg_data["z_max"]) + "," + str(seg_data["z_min"]) + "," + str(seg_data["z_kurt"]) + "," + str(seg_data["z_skew"]) + "," + str(seg_data["z_rms"]) + "\n"
             the_file.write(row)
+    count_print()
 
 def write_resamble(X_resampled, y_resampled, read_file):
     file = "./feature/" + "smoted_"  + read_file
@@ -325,6 +372,7 @@ def write_resamble(X_resampled, y_resampled, read_file):
     data = pd.DataFrame(X_resampled)
     with open(file, "w+") as the_file:
         for i in range(0, n_resample):
+            count_label(str(y_resampled[i]))
             row = str(y_resampled[i]) + "," + \
                 str(int(data.ix[i, 0])) + "," + str(int(data.ix[i, 1])) + "," + str(int(data.ix[i, 2])) + "," + str(int(data.ix[i, 3])) + "," + \
                 str(int(data.ix[i, 4])) + "," + str(int(data.ix[i, 5])) + "," + str(int(data.ix[i, 6])) + "," + str(int(data.ix[i, 7])) + "," + \
@@ -336,6 +384,7 @@ def write_resamble(X_resampled, y_resampled, read_file):
                 str(int(data.ix[i, 28])) + "," + str(int(data.ix[i, 29])) + "," + \
                 str(int(data.ix[i, 30])) + "," + str(int(data.ix[i, 31])) + "\n"
             the_file.write(row)
+    count_print()
 
 
 def smote(read_file):
@@ -359,7 +408,7 @@ def preprocess(file_dir, write_file, list, Seg_granularity, Low_Pass_k):
     statistics_data = Calculate_Statistic_Feature(splited_data, Seg_granularity)
     statistics_data = Scale_Feature(statistics_data)
     Write_File(write_file, statistics_data)
-    smote(write_file)
+    # smote(write_file)
 
 # Do it !    
 def calculate_range_id(start, end):
@@ -367,7 +416,7 @@ def calculate_range_id(start, end):
     for i in range(start, end + 1):
         list.append(i)
     preprocess("./data_set/acceleration_raw.txt", str(start) +
-               "-" + str(end) + ".csv", list, 40, 0.1)
+               "-" + str(end) + ".txt", list, 40, 0.1)
 
 def calculate_except_range_id(start, end):
     list = []
