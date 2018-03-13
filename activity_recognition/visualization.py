@@ -163,7 +163,7 @@ def plot_gridsearch(clf, X, y):
 def plot_learning_curve_cv_compare(X, y, X_S, y_S, clf, cv):
 
     plt.subplot(121)
-    plt.title("未均衡处理前随机森林学习曲线", fontproperties=myfont, fontsize=12)
+    plt.title("未均衡处理前决策树学习曲线", fontproperties=myfont, fontsize=12)
     plt.xlabel("训练样例数", fontproperties=myfont, fontsize=12)
     plt.ylabel("模型精度", fontproperties=myfont, fontsize=12)
 
@@ -186,7 +186,7 @@ def plot_learning_curve_cv_compare(X, y, X_S, y_S, clf, cv):
 
 
     plt.subplot(122)
-    plt.title("均衡处理后随机森林学习曲线", fontproperties=myfont, fontsize=12)
+    plt.title("均衡处理后决策树学习曲线", fontproperties=myfont, fontsize=12)
     plt.xlabel("训练样例数", fontproperties=myfont, fontsize=12)
     plt.ylabel("模型精度", fontproperties=myfont, fontsize=12)
     train_sizes, train_scores, test_scores = learning_curve(
